@@ -1,9 +1,0 @@
-repositories:
-- name: stable
-  url: https://charts.helm.sh/stable
-
-releases:
-  - name: nginx-ingress
-    chart: stable/nginx-ingress
-    namespace: ingress
-    createNamespace: true
