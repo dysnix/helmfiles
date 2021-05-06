@@ -1,0 +1,20 @@
+# Single source of truth for 
+bases:
+- environments.yaml
+---
+# Helm Charts source(s)
+repositories:
+- name: stable
+  url: https://charts.helm.sh/stable
+# Helm Chart Release info
+releases:
+- name: nginx-ingress
+  chart: stable/nginx-ingress
+  namespace: ingress
+  createNamespace: true
+  values:
+    - controller:
+        resources:
+          limits:
+            cpu: {{ .Values.limit_cpu | quote }}
+            memory: {{ .Values.limit_memory | quote }}
