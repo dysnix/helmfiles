@@ -1,0 +1,17 @@
+# Single source of truth for environments
+bases:
+- environments.yaml
+---
+# Helm Charts source(s)
+repositories:
+- name: eks
+  url: https://aws.github.io/eks-charts
+# Helm Chart Release info
+releases:
+- name: aws-load-balancer-controller
+  chart: eks/aws-load-balancer-controller
+  version: 1.1.6
+  namespace: ingress
+  createNamespace: true
+  values:
+    - clusterName: {{ .Values.cluster_name }}
