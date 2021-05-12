@@ -1,5 +1,18 @@
 # Environment related values files
+---
 environments:
   default:
     values:
-      - defaults.yaml
+      - &default defaults.yaml
+  aws:
+    values:
+      - *default
+      - presets/aws.yaml
+  gcp:
+    values:
+      - *default
+      - presets/gcp.yaml
+  azure:
+    values:
+      - *default
+      - presets/azure.yaml
