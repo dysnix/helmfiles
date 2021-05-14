@@ -1,0 +1,5 @@
+# Environment related values files
+environments:
+  default:
+    values:
+      - defaults.yaml
