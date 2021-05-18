@@ -1,2 +1,4 @@
 # TBD
 # By default  cert-manager  installs in GCP with default parameters / values
+gcp_key_b64: "QkFTRV82NF9FTkNPREVEX0pTT05fRklMRQ=="
+gcp_project_id: "my_project_id"

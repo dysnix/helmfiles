@@ -1,2 +1,5 @@
 # TBD
 # By default cert-manager installs in AWS with default parameters / values
+aws_access_key_b64: "QkFTRV82NF9FTkNPREVEX0pTT05fRklMRQ=="
+aws_access_key_id: "aws_access_key_id"
+aws_region: "eu-central-1"

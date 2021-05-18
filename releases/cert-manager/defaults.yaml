@@ -5,3 +5,4 @@ limit_memory: "0.5Gi"
 cf_api_token: "SupErtt0ken"
 cf_email: "cloudflare@email.com"
 acme_email: "acme@email.com"
+issuer: cf
