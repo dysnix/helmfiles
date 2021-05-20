@@ -1,0 +1,8 @@
+controller:
+  resources:
+    limits:
+      cpu: {{ .Values._preset.limit_cpu | quote }}
+      memory: {{ .Values._preset.limit_memory | quote }}
+  service:
+    annotations:
+      {{- .Values._preset.service_annotations | toYaml | nindent 6 }}

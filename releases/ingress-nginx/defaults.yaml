@@ -1,0 +1,12 @@
+_setup:
+  release:
+    name: ingress-nginx
+    namespace: ingress-nginx
+    chart: ingress-nginx/ingress-nginx
+    version: ~3.31.0
+    createNamespace: true
+
+_preset:
+  limit_cpu: "250m"
+  limit_memory: "0.5Gi"
+  service_annotations: {}

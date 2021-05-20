@@ -1,5 +1,0 @@
-# Default environment values
----
-limit_cpu: "250m"
-limit_memory: "0.5Gi"
-service_annotations: {}
