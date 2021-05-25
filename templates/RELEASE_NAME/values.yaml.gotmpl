@@ -1,8 +1,11 @@
+{{/* vim: set filetype=mustache: */}}
 {{/*
-  %%RELEASE_NAME%% values template file.
+%%RELEASE_NAME%% values template file.
 */}}
 
-{{/* Helpers and calculations */}}
+{{/*
+Helpers and calculations
+*/}}
 {{- $anti_affinity := .Values._preset.anti_affinity | toString -}}
 
 service:

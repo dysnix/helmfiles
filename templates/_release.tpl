@@ -1,10 +1,10 @@
 {{/* vim: set filetype=mustache: */}}
+{{/*
+Default release template helper. Renders the default release.
 
-{{/* Default release template helper. Renders the default release.
-
-     Note: Paths to values/secrets etc files are normalized to be relative
-     to the parent helmfile.
- */}}
+Note: Paths to values/secrets etc files are normalized to be relative
+to the parent helmfile.
+*/}}
 
 {{- $release := .Values._setup.release -}}
 

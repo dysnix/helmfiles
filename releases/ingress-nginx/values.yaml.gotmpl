@@ -1,8 +1,11 @@
+{{/* vim: set filetype=mustache: */}}
 {{/*
-  Ingress nginx values template file.
+Ingress nginx values template file.
 */}}
 
-{{/* Helpers and calculations */}}
+{{/*
+Helpers and calculations
+*/}}
 {{- $anti_affinity := .Values._preset.anti_affinity | toString -}}
 
 controller:
