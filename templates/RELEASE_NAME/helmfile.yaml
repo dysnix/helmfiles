@@ -1,0 +1,16 @@
+bases:
+  - ../../templates/env.yaml.gotmpl
+---
+
+## Repositories section
+repositories:
+- name: %%REPOSITORY_NAME%%
+  url: %%REPOSITORY_URL%%
+
+## Template helpers section
+{{- $release := tpl (readFile "../../templates/_release.tpl") . -}}
+
+## Releases section
+releases:
+## Default release
+- {{- $release | nindent 2 }}
