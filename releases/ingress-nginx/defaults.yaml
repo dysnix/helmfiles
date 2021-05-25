@@ -7,6 +7,22 @@ _setup:
     createNamespace: true
 
 _preset:
-  limit_cpu: "250m"
-  limit_memory: "0.5Gi"
+  ## Default enablers
+  default_config: true
+  ## Anti Affinity true/soft/hard (true equals soft)
+  anti_affinity: true
+  anti_affinity_weight: 1
+  autoscale: true
+  autoscale_min: 1
+  autoscale_max: 3
+  request_cpu: 100m
+  request_memory: 90Mi
+  limit_cpu: 200m
+  limit_memory: 250Mi
   service_annotations: {}
+
+_default:
+  config:
+    ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA"
+    ssl-protocols: "TLSv1.2 TLSv1.3"
+    use-gzip: "true"
