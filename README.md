@@ -10,7 +10,7 @@ Main pillars driving the philosophy of the project:
 
 ## Usage
 
-Surely we you should have a recent helmfile available, you can grab it from [the official github page](https://github.com/roboll/helmfile).
+Surely you should have a recent helmfile available, you can grab it from [the official github page](https://github.com/roboll/helmfile).
 
 ### Add the repository into your helmfiles git repostory
 
