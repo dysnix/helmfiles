@@ -101,7 +101,7 @@ helmfiles:
 
 Basically, the value map passed as `_setup.release` is the main release helmfile configuration, thus you are free to use any key which is valid for a helmfile release.
 
-One tricky moment here is that we translate path for some stanzas such as `values`, `secrets` etc. For these path you have specify path to included files **relative from your parent helmfile**, not from the child (the release which we are including).
+One tricky moment here is that we translate paths in some stanzas such as `values`, `secrets` etc. For these paths you have to specify a path **relative from your parent helmfile**, but not from the child (i.e the release which we are including).
 
 ## Contribute
 
