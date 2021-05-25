@@ -2,7 +2,7 @@
 
 The repository aims to provide Dysnix opinionated in-home applications operation knowledge in the form of Helmfiles.
 
-Main pillars driving the the philosophy of the project:
+Main pillars driving the philosophy of the project:
   * Baked ready-to-use helmfiles.
   * Provide common and **repeatable value-interface** from release to release.
   * Provide configuration presets (including presets for Cloud Providers).
