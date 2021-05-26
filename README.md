@@ -40,7 +40,7 @@ For operation we leverage on mechanism to pass values to a child helmfile as lon
 
 ### Dynamic environments
 
-We do not force specific environment name, i.e. environment can be any way as might need for your project.
+We do not force specific environment name, i.e. environment name can be any as you choose for your project.
 
 ```yaml
 environments:
