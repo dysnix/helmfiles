@@ -36,7 +36,7 @@ For clarification the tree of your helmfiles git repository:
 
 ## Configuration patterns
 
-For operation we leverage on mechanism to pass values to a child helmfile as long as passing values via **environments**. Not to abuse possible user's environment values, we reserve a number of keys prefixed with `_`, such as `_preset`, `_default`, `_setup`.
+For operation we leverage on mechanism to pass values to a child helmfile as long as passing values via **environments** is possible. Not to abuse possible user's environment values, we reserve a number of keys prefixed with `_`, such as `_preset`, `_default`, `_setup`.
 
 ### Dynamic environments
 
