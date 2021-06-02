@@ -3,9 +3,11 @@ bases:
 ---
 
 ## Repositories section
+{{- if .Values._setup.update_repos }}
 repositories:
 - name: %%REPOSITORY_NAME%%
   url: %%REPOSITORY_URL%%
+{{- end }}
 
 ## Template helpers section
 {{- $release := tpl (readFile "../../templates/_release.tpl") . -}}
