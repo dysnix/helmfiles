@@ -1,4 +1,5 @@
 _setup:
+  update_repos: true
   release:
     name: %%RELEASE_NAME%%
     namespace: %%RELEASE_NAMESPACE%%

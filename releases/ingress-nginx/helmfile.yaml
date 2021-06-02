@@ -3,9 +3,11 @@ bases:
 ---
 
 ## Repositories section
+{{- if .Values._setup.update_repos }}
 repositories:
 - name: ingress-nginx
   url: https://kubernetes.github.io/ingress-nginx
+{{- end }}
 
 ## Template helpers section
 {{- $release := tpl (readFile "../../templates/_release.tpl") . -}}
