@@ -2,17 +2,19 @@ bases:
   - ../../templates/env.yaml.gotmpl
 ---
 
-## Repositories section
-{{- if .Values._setup.update_repos }}
+## Repositories
+{{- if .Values._set.repositories.update }}
 repositories:
-- name: %%REPOSITORY_NAME%%
-  url: %%REPOSITORY_URL%%
+{{- range $name, $url := .Values._set.repositories.map }}
+- name: {{ $name }}
+  url: {{ $url }}
+{{- end }}
 {{- end }}
 
-## Template helpers section
-{{- $release := tpl (readFile "../../templates/_release.tpl") . -}}
+## Formulas
+{{- $release := tpl (readFile "../../templates/release.tpl") (dict "context" $) -}}
 
-## Releases section
+## Releases
 releases:
-## Default release
-- {{- $release | nindent 2 }}
+# renders the default release
+- {{- $release | nindent 2 -}}

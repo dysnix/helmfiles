@@ -36,7 +36,7 @@ For clarification the tree of your helmfiles git repository:
 
 ## Configuration patterns
 
-For operation we leverage on mechanism to pass values to a child helmfile as long as passing values via **environments** is possible. Not to abuse possible user's environment values, we reserve a number of keys prefixed with `_`, such as `_preset`, `_default`, `_setup`.
+For operation we leverage on mechanism to pass values to a child helmfile as long as passing values via **environments** is possible. Not to abuse possible user's environment values, we reserve a number of keys prefixed with `_`, such as `_set`, `_default` (maybe more).
 
 ### Dynamic environments
 
@@ -76,11 +76,13 @@ You can also override a preset value:
 helmfiles:
   - path: helmfiles/releases/ingress-nginx/helmfile.yaml
     values:
-      - _preset:
-          limit_cpu: 137m
+      - _set:
+          resources:
+            limits:
+              cpu: 137m
 ```
 
-You might have noticed that we didn't specify any preset in the example above, however we override the preset value for `limit_cpu`. Indeed this is totally valid due to the fact that **the default preset values are set automatically**.
+You might have noticed that we didn't specify any preset in the example above, however we override the preset value for `resources.limit.cpu`. Indeed this is totally valid due to the fact that **the default preset values are set automatically** (well depends might depend on a release, ingress-nginx does have the default resources).
 
 ### Customize a release
 
@@ -90,7 +92,7 @@ Here we will show how to pass the helmfile configuration allowing an end-user st
 helmfiles:
   - path: helmfiles/releases/ingress-nginx/helmfile.yaml
     values:
-      - _setup:
+      - _set:
           release:
             name: my-ingress
             values:
@@ -99,9 +101,13 @@ helmfiles:
               - relatve_values.yaml.gotmpl
 ```
 
-Basically, the value map passed as `_setup.release` is the main release helmfile configuration, thus you are free to use any key which is valid for a helmfile release.
+Basically, the value map passed as `_set.release` is the main release helmfile configuration, thus you are free to use any key which is valid for a helmfile release.
 
 One tricky moment here is that we translate paths in some stanzas such as `values`, `secrets` etc. For these paths you have to specify a path **relative from your parent helmfile**, but not from the child (i.e the release which we are including).
+
+## Helmfile release customization (`_set`)
+
+Each release default configuration settings as well as the control interface can be glanced under the `_set` key in `releases/RELEASE_NAME/default.yaml` and `releases/RELEASE_NAME/preset/*.yaml`.
 
 ## Contribute
 
