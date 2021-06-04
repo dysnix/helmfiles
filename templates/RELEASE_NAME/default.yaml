@@ -1,5 +1,4 @@
-_setup:
-  update_repos: true
+_use:
   release:
     name: %%RELEASE_NAME%%
     namespace: %%RELEASE_NAMESPACE%%
@@ -7,26 +6,42 @@ _setup:
     version: %%RELEASE_VERSION%%
     createNamespace: true
 
-## Preset default values (common between releases)
-## Note: trim down for a specific release
-##
-_preset:
-  ## Default enablers
-  ## default_myoption: true
-  # Pod Anti Affinity true/soft/hard (true equals soft)
-  anti_affinity: true
-  anti_affinity_weight: 1
-  autoscale: true
-  autoscale_min: 1
-  autoscale_max: 3
-  request_cpu: 100m
-  request_memory: 100Mi
-  limit_cpu: 200m
-  limit_memory: 250Mi
-  service_annotations: {}
+  repositories_sync: true
+  repositories:
+    - name: %%RELEASE_REPOSITORY%%
+      url: https://release.charts.url
 
-## Default enablers configuration (maps of default values)
-## Note: use default_myoption: true to enable
+## === %%RELEASE_NAME%% specific settings ===
+##
+# _set:
+#   podAntiAffinity:
+#     # soft/true and hard, other than this disables affinity
+#     enabled: true
+#     weight: 1
+
+#   autoscaling:
+#     enabled: true
+#     minReplicas: 1
+#     maxReplicas: 3
+
+#   resources:
+#     requests:
+#       cpu: 100m
+#       memory: 90Mi
+#     limits:
+#       cpu: 200m
+#       memory: 250Mi
+
+#   service:
+#     annotations: {}
+
+## === Release predefined defaults ===
 ##
 # _default:
-#   myoption:
+#   podAntiAffinity:
+#     topologyKey: kubernetes.io/hostname
+#     matchExpressions:
+#       - key: app.kubernetes.io/name
+#         operator: In
+#         values:
+#           - %%RELASE_NAME%%

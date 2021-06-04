@@ -3,62 +3,20 @@
 Ingress nginx values template file.
 */}}
 
-{{/*
-Helpers and calculations
-*/}}
-{{- $anti_affinity := .Values._preset.anti_affinity | toString -}}
-
 controller:
-  autoscaling:
-    enabled: {{ .Values._preset.autoscale }}
-    minReplicas: {{ .Values._preset.autoscale_min }}
-    maxReplicas: {{ .Values._preset.autoscale_max }}
-
-  resources:
-    requests:
-      cpu: {{ .Values._preset.request_cpu | quote }}
-      memory: {{ .Values._preset.request_memory | quote }}
-    limits:
-      cpu: {{ .Values._preset.limit_cpu | quote }}
-      memory: {{ .Values._preset.limit_memory | quote }}
-
   service:
-    annotations:
-      {{- .Values._preset.service_annotations | toYaml | nindent 6 }}
-
-  {{- if .Values._preset.default_config }}
-  config: {{- .Values._default.config | toYaml | nindent 4 }}
-  {{- end }}
+    annotations: {{- .Values | get "_set.service.annotations" dict | toYaml | nindent 6 }}
 
   affinity:
-  {{- if has $anti_affinity (list "true" "soft") }}
-    podAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: {{ .Values._preset.anti_affinity_weight }}
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: app.kubernetes.io/name
-              operator: In
-              values:
-              - ingress-nginx
-            - key: app.kubernetes.io/component
-              operator: In
-              values:
-              - controller
-          topologyKey: kubernetes.io/hostname
-  {{- else if eq $anti_affinity "hard" }}
-    podAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app.kubernetes.io/name
-            operator: In
-            values:
-            - ingress-nginx
-          - key: app.kubernetes.io/component
-            operator: In
-            values:
-            - controller
-        topologyKey: kubernetes.io/hostname
+    podAntiAffinity: {{- tpl (readFile "../../templates/pod-affinities.tpl") (dict "type" "podAntiAffinity" "context" $) | nindent 6 }}
+
+  {{- if .Values | get "_set.autoscaling.enabled" false }}
+  autoscaling:
+    enabled: {{ .Values._set.autoscaling.enabled }}
+    minReplicas: {{ .Values._set.autoscaling.minReplicas }}
+    maxReplicas: {{ .Values._set.autoscaling.maxReplicas }}
   {{- end }}
+
+  resources:
+    requests: {{- .Values | get "_set.resources.requests" dict | toYaml | nindent 6 }}
+    limits: {{- .Values | get "_set.resources.limits" dict | toYaml | nindent 6 }}

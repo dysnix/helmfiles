@@ -2,17 +2,14 @@ bases:
   - ../../templates/env.yaml.gotmpl
 ---
 
-## Repositories section
-{{- if .Values._setup.update_repos }}
-repositories:
-- name: ingress-nginx
-  url: https://kubernetes.github.io/ingress-nginx
+## Repositories
+{{- if .Values._use.repositories_sync }}
+repositories: {{- .Values._use.repositories | toYaml | nindent 2 }}
 {{- end }}
 
-## Template helpers section
-{{- $release := tpl (readFile "../../templates/_release.tpl") . -}}
+## Formulas
+{{- $release := tpl (readFile "../../templates/release.tpl") (dict "context" $) -}}
 
-## Releases section
+## Releases
 releases:
-## Default release
-- {{- $release | nindent 2 }}
+- {{- $release | nindent 2 -}}
