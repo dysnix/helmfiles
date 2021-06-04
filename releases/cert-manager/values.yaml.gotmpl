@@ -1,0 +1,16 @@
+{{/* vim: set filetype=mustache: */}}
+{{/*
+cert-manager values template file.
+*/}}
+
+## Resources
+resources:
+  requests: {{- .Values | get "_set.resources.requests" dict | toYaml | nindent 4 }}
+  limits: {{- .Values | get "_set.resources.limits" dict | toYaml | nindent 4 }}
+
+## ingressShim (default issuer config)
+{{- if typeIs "string" (.Values._set | get "default_issuer" nil) -}}
+  {{- with .Values._default | get (list .Values._set.default_issuer "ingressShim" | join ".") dict }}
+ingressShim: {{- . | toYaml | nindent 2 }}
+  {{- end }}
+{{- end }}

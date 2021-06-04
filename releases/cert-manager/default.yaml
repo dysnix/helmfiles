@@ -1,0 +1,46 @@
+_use:
+  release:
+    name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.3.1
+    createNamespace: true
+    labels:
+      bundle: cert-manager
+
+  repositories_sync: true
+  repositories:
+    - name: jetstack
+      url: https://charts.jetstack.io
+    - name:
+      bedag: https://bedag.github.io/helm-charts
+
+## === cert-manager release specific settings ===
+##
+_set:
+  # Apply jetstack CRDs after helmfile sync
+  postsync_crds: false
+
+  # Set the defaut issuer type (can be false or empty)
+  default_issuer: letsencrypt
+
+  # Let's Encrypt issuers
+  letsencrypt:
+    enabled: true
+    ## When enabled you must provide the letsencrypt.acme_email
+    # acme_email: email@tld.com
+  create_issuers:
+    letsencrypt: true
+
+  ## Enable other issuers
+  # route53:
+  #   enabled: true
+
+## === Release default settings ===
+##
+_default:
+  letsencrypt:
+    ingressShim:
+      defaultIssuerName: letsecrypt-prod
+      defaultIssuerKind: ClusterIssuer
+      defaultIssuerGroup: cert-manager.io
