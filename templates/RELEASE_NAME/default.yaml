@@ -6,10 +6,10 @@ _set:
     version: %%RELEASE_VERSION%%
     createNamespace: true
 
+  repositories_sync: true
   repositories:
-    update: true
-    map:
-      %%RELEASE_NAME: https://release.charts.url
+    - name: %%RELEASE_REPOSITORY%%
+      url: https://release.charts.url
 
   ## === %%RELEASE_NAME%% release specific settings ===
   ##
