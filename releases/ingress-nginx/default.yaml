@@ -1,4 +1,4 @@
-_set:
+_use:
   release:
     name: ingress-nginx
     namespace: ingress-nginx
@@ -11,9 +11,9 @@ _set:
     - name: ingress-nginx
       url: https://kubernetes.github.io/ingress-nginx
 
-  ## === %%RELEASE_NAME%% release specific settings ===
-  ##
-
+## === ingress-nginx specific customizations ===
+##
+_set:
   podAntiAffinity:
     # soft/true and hard, other than this disables affinity
     enabled: true 
@@ -35,7 +35,7 @@ _set:
   service:
     annotations: {}
 
-## === Release default settings ===
+## === Release predefined defaults ===
 ##
 _default:
   config:

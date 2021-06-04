@@ -15,7 +15,7 @@ releases:
 Note: Paths to values/secrets etc files are normalized to be relative to the parent helmfile!
 */}}
 
-{{- $release := .context.Values._set.release -}}
+{{- $release := .context.Values._use.release -}}
 {{- $opts := . | get "opts" dict -}}
 
 {{- range $normalizePathFor := list "set" "setTemplate" "values" "valuesTemplate" "secrets" -}}
@@ -40,7 +40,7 @@ Note: Paths to values/secrets etc files are normalized to be relative to the par
 
 {{/* Append hooks */}}
 {{- if hasKey $opts "hooks" -}}
-  {{- $release := set $release "hooks" (concat $opts.hooks ($release | get "hooks" list)) -}}
+  {{- $release = set $release "hooks" (concat $opts.hooks ($release | get "hooks" list)) -}}
 {{- end -}}
 
 {{- $release | toYaml -}}

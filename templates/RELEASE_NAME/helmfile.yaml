@@ -3,8 +3,8 @@ bases:
 ---
 
 ## Repositories
-{{- if .Values._set.repositories_sync }}
-repositories: {{- .Values._set.repositories | toYaml | nindent 2 }}
+{{- if .Values._use.repositories_sync }}
+repositories: {{- .Values._use.repositories | toYaml | nindent 2 }}
 {{- end }}
 
 ## Formulas
@@ -12,5 +12,4 @@ repositories: {{- .Values._set.repositories | toYaml | nindent 2 }}
 
 ## Releases
 releases:
-# renders the default release
 - {{- $release | nindent 2 -}}
