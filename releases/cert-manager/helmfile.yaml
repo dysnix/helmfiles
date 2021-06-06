@@ -13,7 +13,6 @@ repositories: {{- .Values._use.repositories | toYaml | nindent 2 }}
 {{- $issuers := tpl (readFile "templates/issuers.tpl") $ | fromYaml | get "issuers" list -}}
 
 ## Releases
-# {{ pick $release "kubeContext" "namespace" "name" | js }}
 releases:
 -
   {{- $release | toYaml | nindent 2 }}
@@ -24,6 +23,7 @@ releases:
   namespace: {{ $release.namespace }}
   labels: {{- $release.labels | toYaml | nindent 4 }}
   installed: {{ not (empty $issuers) }}
+  kubeContext: {{ $release | get "kubeContext" nil }}
   needs:
     - {{ tpl (readFile "../../templates/needs.tpl") (pick $release "kubeContext" "namespace" "name") }}
   values:
