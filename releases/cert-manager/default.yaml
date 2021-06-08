@@ -12,35 +12,39 @@ _use:
   repositories:
     - name: jetstack
       url: https://charts.jetstack.io
-    - name:
-      bedag: https://bedag.github.io/helm-charts
+    - name: bedag
+      url: https://bedag.github.io/helm-charts
 
 ## === cert-manager release specific settings ===
 ##
 _set:
   # Apply jetstack CRDs after helmfile sync
-  postsync_crds: false
+  postsync_crds: true
 
-  # Set the defaut issuer type (can be false or empty)
-  default_issuer: letsencrypt
+  # Sets the default ingress shim to use
+  ingress_shim: letsencrypt
 
-  # Let's Encrypt issuers
+  # Let's encrypt configuration
   letsencrypt:
-    enabled: true
-    ## When enabled you must provide the letsencrypt.acme_email
+    ## Set acme_email when installing letsencrypt issuers
     # acme_email: email@tld.com
-  create_issuers:
-    letsencrypt: true
+    environment: prod # or staging
+    challange: http01
+    ## Default ingress class
+    ingress_class: nginx
 
-  ## Enable other issuers
-  # route53:
-  #   enabled: true
+  # Installed cluster issuers
+  cluster_issuers:
+    letsencrypt_http01: true
+    # letsencrypt_dns: true
+    # route53: true
 
 ## === Release default settings ===
 ##
 _default:
+  # Default ingress shim for letsencrypt 
   letsencrypt:
-    ingressShim:
-      defaultIssuerName: letsecrypt-prod
+    ingressShim: |
+      defaultIssuerName: "letsencrypt-{{ .Values._set.letsencrypt.challange }}-{{ .Values._set.letsencrypt.environment }}"
       defaultIssuerKind: ClusterIssuer
       defaultIssuerGroup: cert-manager.io

@@ -1,44 +1,15 @@
 {{/* vim: set filetype=mustache: */}}
-{{- $issuers := tpl (readFile "templates/issuers.tpl") $ | fromYaml | get "issuers" list -}}
+{{/*
+  Installed enabled issuers 
+*/}}
+
 templates:
-{{- if has "letsencrypt" $issuers }}
-  - |
-    ---
-    apiVersion: cert-manager.io/v1
-    kind: ClusterIssuer
-    metadata:
-      name: letsencrypt-prod
-      namespace: cert-manager
-    spec:
-      acme:
-        server: https://acme-v02.api.letsencrypt.org/directory
-        email: {{ .Values._set.letsencrypt.acme_email }}
-        privateKeySecretRef:
-          name: letsencrypt-prod
-        solvers:
-          # An empty 'selector' means that this solver matches all domains
-          - selector: {}
-            http01:
-              ingress:
-                class: nginx
-    ---
-    apiVersion: cert-manager.io/v1
-    kind: ClusterIssuer
-    metadata:
-      name: letsencrypt-staging
-      namespace: cert-manager
-    spec:
-      acme:
-        server: https://acme-staging-v02.api.letsencrypt.org/directory
-        email: {{ .Values._set.letsencrypt.acme_email }}
-        privateKeySecretRef:
-          name: letsencrypt-staging
-        solvers:
-          # An empty 'selector' means that this solver matches all domains
-          - selector: {}
-            http01:
-              ingress:
-                class: nginx
+{{- if values .Values._set.cluster_issuers | has true }}
+  {{- range $issuer, $enabled := .Values._set.cluster_issuers }}
+    {{- if $enabled }}
+      {{- tpl (readFile ($issuer | printf "templates/cluster-issuers-%s.tpl")) $ | nindent 2 }}
+    {{- end }}
+  {{- end }}
 {{- else }}
   []
 {{- end }}

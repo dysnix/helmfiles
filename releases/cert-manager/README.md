@@ -19,7 +19,7 @@ Run the helmfile (not that the release name might be different):
 helmfile -l name=cert-manager list
 ```
 
-**cert-manager** helmfile deploys a release bundle of multiple charts, to make sure that all the charts are process use `-l bulndle=cert-manager` selector:
+**cert-manager** helmfile deploys a release bundle of multiple charts, to make sure that all the charts are process use `-l bundle=cert-manager` selector:
 
 ```bash
 helmfile -l bundle=cert-manager list

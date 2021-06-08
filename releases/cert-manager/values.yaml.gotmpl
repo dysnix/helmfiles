@@ -8,9 +8,14 @@ resources:
   requests: {{- .Values | get "_set.resources.requests" dict | toYaml | nindent 4 }}
   limits: {{- .Values | get "_set.resources.limits" dict | toYaml | nindent 4 }}
 
-## ingressShim (default issuer config)
-{{- if typeIs "string" (.Values._set | get "default_issuer" nil) -}}
-  {{- with .Values._default | get (list .Values._set.default_issuer "ingressShim" | join ".") dict }}
-ingressShim: {{- . | toYaml | nindent 2 }}
+## Set the default ingress_shim
+{{- if .Values._set.ingress_shim -}}
+  {{- with .Values._default | get (.Values._set.ingress_shim | printf "%s.ingressShim") dict }}
+ingressShim:
+    {{- if typeIs "string" . }}
+      {{- tpl . $ | nindent 2 }}
+    {{- else }}
+      {{- . | toYaml | nindent 2 }}
+    {{- end }}
   {{- end }}
 {{- end }}
