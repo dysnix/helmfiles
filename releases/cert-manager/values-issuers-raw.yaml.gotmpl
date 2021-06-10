@@ -1,0 +1,15 @@
+{{/* vim: set filetype=mustache: */}}
+{{/*
+  Installed enabled issuers 
+*/}}
+
+templates:
+{{- if values .Values._set.cluster_issuers | has true }}
+  {{- range $issuer, $enabled := .Values._set.cluster_issuers }}
+    {{- if $enabled }}
+      {{- tpl (readFile ($issuer | printf "templates/cluster-issuers-%s.tpl")) $ | nindent 2 }}
+    {{- end }}
+  {{- end }}
+{{- else }}
+  []
+{{- end }}

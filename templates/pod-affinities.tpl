@@ -17,7 +17,7 @@ preferredDuringSchedulingIgnoredDuringExecution:
     labelSelector:
       matchExpressions: {{- $values | get (list "_default" .type "matchExpressions" | join ".") | toYaml | nindent 8 }}
     topologyKey: {{ $values | get (list "_default" .type "topologyKey" | join ".") }}
-  {{- else if eq $affinity "hard" -}}
+  {{- else if eq $affinity "hard" }}
 requiredDuringSchedulingIgnoredDuringExecution:
 - labelSelector:
     matchExpressions: {{- $values | get (list "_default" .type "matchExpressions" | join ".") | toYaml | nindent 6 }}

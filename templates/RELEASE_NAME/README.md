@@ -19,7 +19,7 @@ Run the helmfile (not that the release name might be different):
 helmfile -l name=%%RELEASE_NAME list
 ```
 
-**%%RELEASE_NAME** helmfile deploys a release bundle of multiple charts, to make sure that all the charts are process use `-l bulndle=%%RELEASE_NAME` selector:
+**%%RELEASE_NAME** helmfile deploys a release bundle of multiple charts, to make sure that all the charts are process use `-l bundle=%%RELEASE_NAME` selector:
 
 ```bash
 helmfile -l bundle=%%RELEASE_NAME list

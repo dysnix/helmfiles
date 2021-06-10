@@ -1,0 +1,29 @@
+bases:
+  - ../../templates/env.yaml.gotmpl
+---
+
+## Repositories
+{{- if .Values._use.repositories_sync }}
+repositories: {{- .Values._use.repositories | toYaml | nindent 2 }}
+{{- end }}
+
+## Formulas
+{{- $opts := pick (tpl (readFile "templates/release-hooks.tpl") $ | fromYaml) "hooks" -}}
+{{- $release := tpl (readFile "../../templates/release.tpl") (dict "opts" $opts "context" $) | fromYaml }}
+
+## Releases
+releases:
+-
+  {{- $release | toYaml | nindent 2 }}
+-
+  name: cert-manager-issuers
+  chart: bedag/raw
+  version: "1.1.0"
+  namespace: {{ $release.namespace }}
+  labels: {{- $release.labels | toYaml | nindent 4 }}
+  installed: {{ values .Values._set.cluster_issuers | has true }}
+  kubeContext: {{ $release | get "kubeContext" nil }}
+  needs:
+    - {{ tpl (readFile "../../templates/needs.tpl") (pick $release "kubeContext" "namespace" "name") }}
+  values:
+    - values-issuers-raw.yaml.gotmpl
