@@ -22,7 +22,9 @@ releases:
   namespace: {{ $release.namespace }}
   labels: {{- $release.labels | toYaml | nindent 4 }}
   installed: {{ values .Values._set.cluster_issuers | has true }}
-  kubeContext: {{ $release | get "kubeContext" nil }}
+  {{- with $release | get "kubeContext" nil }}
+  kubeContext: {{ . }}
+  {{- end }}
   needs:
     - {{ tpl (readFile "../../templates/needs.tpl") (pick $release "kubeContext" "namespace" "name") }}
   values:
