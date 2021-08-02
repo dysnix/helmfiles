@@ -34,7 +34,7 @@ _set:
 
   service:
     annotations: {}
-    externalTrafficPolicy: Local
+    externalTrafficPolicy: Cluster
 
 ## === Release predefined defaults ===
 ##
