@@ -6,7 +6,7 @@ Ingress nginx values template file.
 controller:
   service:
     annotations: {{- .Values | get "_set.service.annotations" dict | toYaml | nindent 6 }}
-    externalTrafficPolicy: {{- .Values | get "_set.service.externalTrafficPolicy" | toYaml | nindent 6 }}
+    externalTrafficPolicy: {{ .Values | get "_set.service.externalTrafficPolicy" }}
   affinity:
     podAntiAffinity: {{- tpl (readFile "../../templates/pod-affinities.tpl") (dict "type" "podAntiAffinity" "context" $) | nindent 6 }}
 
