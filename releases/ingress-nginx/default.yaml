@@ -16,7 +16,7 @@ _use:
 _set:
   podAntiAffinity:
     # soft/true and hard, other than this disables affinity
-    enabled: true 
+    enabled: true
     weight: 1
 
   autoscaling:
@@ -34,6 +34,7 @@ _set:
 
   service:
     annotations: {}
+    externalTrafficPolicy: Cluster
 
 ## === Release predefined defaults ===
 ##
