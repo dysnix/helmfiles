@@ -35,6 +35,7 @@ _set:
   service:
     annotations: {}
     externalTrafficPolicy: Cluster
+    type: LoadBalancer
 
 ## === Release predefined defaults ===
 ##

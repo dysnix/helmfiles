@@ -7,6 +7,8 @@ controller:
   service:
     annotations: {{- .Values | get "_set.service.annotations" dict | toYaml | nindent 6 }}
     externalTrafficPolicy: {{ .Values | get "_set.service.externalTrafficPolicy" }}
+    type: {{ .Values | get "_set.service.type" }}
+
   affinity:
     podAntiAffinity: {{- tpl (readFile "../../templates/pod-affinities.tpl") (dict "type" "podAntiAffinity" "context" $) | nindent 6 }}
 
