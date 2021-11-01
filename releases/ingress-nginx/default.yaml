@@ -3,7 +3,7 @@ _use:
     name: ingress-nginx
     namespace: ingress-nginx
     chart: ingress-nginx/ingress-nginx
-    version: ~3.32.0
+    version: ~4.0.6
     createNamespace: true
 
   repositories_sync: true
