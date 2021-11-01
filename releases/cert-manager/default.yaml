@@ -3,7 +3,7 @@ _use:
     name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.3.1
+    version: v1.6.1
     createNamespace: true
     labels:
       bundle: cert-manager
